@@ -42,9 +42,12 @@ prerender = ->
   if current_pos is final_pos
     Engine.removeListener 'prerender', prerender
 
+count = 0
+
 Template.blurred.rendered = ->
   surface = (FView.byId 'surf').surface
-  surface.on 'click', ->
+  surface.on 'touchstart', ->
     [start, end] = if blurred then [0, 10] else [10, 0]
     blur_from_to start, end, snap
     blurred = not blurred
+    surface.setContent "Count #{count++}"
